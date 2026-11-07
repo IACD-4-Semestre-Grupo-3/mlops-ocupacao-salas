@@ -1,7 +1,7 @@
 {
-  "recall_ocupada": 1.0,
-  "precisao_ocupada": 0.9974489795918368,
-  "acuracia": 0.999236641221374,
-  "n_amostras": 2620,
-  "origem": "base_treino.csv"
+  "recall_ocupada": 0.9887076537013801,
+  "precisao_ocupada": 0.9974683544303797,
+  "acuracia": 0.9958955223880597,
+  "n_amostras": 2680,
+  "origem": "treinamento contínuo (CT)"
 }
