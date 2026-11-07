@@ -3,7 +3,6 @@
 from pathlib import Path
 
 import yaml
-from sklearn.datasets import load_breast_cancer
 
 RAIZ = Path(__file__).resolve().parents[2]
 
@@ -26,20 +25,38 @@ RESUMO_GATE = RAIZ / "reports" / "gate.md"
 RELATORIO_DRIFT = RAIZ / "reports" / "drift.md"
 PARAMS = RAIZ / "params.yaml"
 
-# esquema dos dados
-FEATURES = [str(nome) for nome in load_breast_cancer().feature_names]  # str puro, não numpy.str_
-ALVO = "target"
-# ATENÇÃO: no Breast Cancer do scikit-learn, 0 = MALIGNO e 1 = BENIGNO.
-CLASSE_MALIGNA = 0
-COLUNAS_TAMANHO = [c for c in FEATURES if any(p in c for p in ("radius", "perimeter", "area"))]
-
-# limiares de qualidade (o "contrato" do modelo). Mudar aqui exige revisão em PR.
-RECALL_MINIMO = 0.90
+# Sensores ambientais; contagem original e timestamp nunca entram no modelo.
+FEATURES = [
+    "S1_Temp",
+    "S2_Temp",
+    "S3_Temp",
+    "S4_Temp",
+    "S1_Light",
+    "S2_Light",
+    "S3_Light",
+    "S4_Light",
+    "S1_Sound",
+    "S2_Sound",
+    "S3_Sound",
+    "S4_Sound",
+    "S5_CO2",
+    "S5_CO2_Slope",
+    "S6_PIR",
+    "S7_PIR",
+]
+ALVO = "ocupada"
+CLASSE_POSITIVA = 1
+COLUNAS_DRIFT = ["S1_Light", "S2_Light", "S3_Light", "S4_Light"]
+# Falso negativo pode apagar a luz numa sala ocupada; falso positivo desperdiça energia.
+# Limiares didáticos definidos antes de treinar/avaliar, não certificação de automação.
+RECALL_MINIMO = 0.95
 PRECISAO_MINIMA = 0.90
-TOLERANCIA_CAMPEAO = 0.0  # o candidato não pode ter recall menor que o campeão
-PISO_SANIDADE = 0.80  # o campeão não pode colapsar na base de referência (holdout fixo)
-LIMITE_DRIFT_P = 0.01  # p-valor do teste KS
-MIN_FEATURES_DRIFT = 3  # gatilho do CT: quantos atributos com drift disparam o retreino
+TOLERANCIA_CAMPEAO = 0.0
+PISO_SANIDADE = 0.85
+LIMITE_DRIFT_P = 0.01
+MIN_FEATURES_DRIFT = 2
+FONTE = RAIZ / "data" / "source" / "Occupancy_Estimation.csv"
+FONTE_SHA256 = "c090ee5c94b61762bfec9d22767864490b51030f98cca030f02822468db25d9c"
 
 
 def carregar_params() -> dict:

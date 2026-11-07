@@ -1,0 +1,122 @@
+{
+  "executado_utc": "2026-11-07T00:16:01.801838+00:00",
+  "escopo": "Validação LOCAL em cópias isoladas; não substitui E1–E5 no GitHub Actions.",
+  "ci_testes_aprovados": 64,
+  "aviso": "Depreciação Starlette/httpx não impeditiva.",
+  "cenarios": {
+    "3": {
+      "setup_returncode": 0,
+      "ct_returncode": 1,
+      "gate": {
+        "aprovado": false,
+        "verificacoes": [
+          {
+            "regra": "recall ocupada do candidato >= 0.95",
+            "ok": false,
+            "valor": 0.8069
+          },
+          {
+            "regra": "precisão ocupada do candidato >= 0.90",
+            "ok": true,
+            "valor": 0.9906
+          },
+          {
+            "regra": "recall ocupada do candidato >= recall do campeão (mesmo conjunto)",
+            "ok": false,
+            "valor": "0.8069 x 1.0000"
+          }
+        ],
+        "candidato": {
+          "recall_ocupada": 0.8069053708439897,
+          "precisao_ocupada": 0.9905808477237049,
+          "acuracia": 0.9400763358778625,
+          "n_amostras": 2620
+        },
+        "campeao": {
+          "recall_ocupada": 1.0,
+          "precisao_ocupada": 0.9974489795918368,
+          "acuracia": 0.999236641221374,
+          "n_amostras": 2620
+        }
+      },
+      "drift": "## Drift\n\nNenhum lote novo em `data/raw/lotes/`. Nada a comparar.\n\nGatilho (>= 2 atributos com drift): não disparado\n",
+      "champion_preserved": true
+    },
+    "4": {
+      "setup_returncode": 0,
+      "ct_returncode": 0,
+      "gate": {
+        "aprovado": true,
+        "verificacoes": [
+          {
+            "regra": "recall ocupada do candidato >= 0.95",
+            "ok": true,
+            "valor": 0.9887
+          },
+          {
+            "regra": "precisão ocupada do candidato >= 0.90",
+            "ok": true,
+            "valor": 0.9975
+          },
+          {
+            "regra": "recall ocupada do candidato >= recall do campeão (mesmo conjunto)",
+            "ok": true,
+            "valor": "0.9887 x 0.9887"
+          }
+        ],
+        "candidato": {
+          "recall_ocupada": 0.9887076537013801,
+          "precisao_ocupada": 0.9974683544303797,
+          "acuracia": 0.9958955223880597,
+          "n_amostras": 2680
+        },
+        "campeao": {
+          "recall_ocupada": 0.9887076537013801,
+          "precisao_ocupada": 0.9974683544303797,
+          "acuracia": 0.9958955223880597,
+          "n_amostras": 2680
+        }
+      },
+      "drift": "## Drift: 16 de 16 atributos\n\nLotes comparados: lote_01.csv (120 linhas)\n\n| Atributo | KS | p-valor |\n|---|---|---|\n| S5_CO2 | 0.833 | 1.2e-83 |\n| S2_Temp | 0.722 | 2.7e-58 |\n| S1_Temp | 0.682 | 3.9e-51 |\n| S2_Light | 0.594 | 1.4e-37 |\n| S1_Light | 0.59 | 5.1e-37 |\n| S4_Temp | 0.527 | 4.6e-29 |\n| S3_Light | 0.526 | 5.4e-29 |\n| S3_Temp | 0.49 | 5.5e-25 |\n| S4_Sound | 0.465 | 2.4e-22 |\n| S5_CO2_Slope | 0.392 | 8.2e-16 |\n\nGatilho (>= 2 atributos com drift): DISPARADO, retreinar\n",
+      "champion_preserved": true
+    },
+    "5": {
+      "setup_returncode": 0,
+      "ct_returncode": 1,
+      "gate": {
+        "aprovado": false,
+        "verificacoes": [
+          {
+            "regra": "recall ocupada do candidato >= 0.95",
+            "ok": true,
+            "valor": 1.0
+          },
+          {
+            "regra": "precisão ocupada do candidato >= 0.90",
+            "ok": false,
+            "valor": 0.2985
+          },
+          {
+            "regra": "recall ocupada do candidato >= recall do campeão (mesmo conjunto)",
+            "ok": true,
+            "valor": "1.0000 x 1.0000"
+          }
+        ],
+        "candidato": {
+          "recall_ocupada": 1.0,
+          "precisao_ocupada": 0.29847328244274807,
+          "acuracia": 0.29847328244274807,
+          "n_amostras": 2620
+        },
+        "campeao": {
+          "recall_ocupada": 1.0,
+          "precisao_ocupada": 0.9974489795918368,
+          "acuracia": 0.999236641221374,
+          "n_amostras": 2620
+        }
+      },
+      "drift": "## Drift\n\nNenhum lote novo em `data/raw/lotes/`. Nada a comparar.\n\nGatilho (>= 2 atributos com drift): não disparado\n",
+      "champion_preserved": true
+    }
+  }
+}

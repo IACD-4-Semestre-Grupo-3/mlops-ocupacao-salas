@@ -1,6 +1,7 @@
 """Pré-processamento e construção do pipeline de modelo."""
 
 import pandas as pd
+from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -21,17 +22,25 @@ def separar_xy(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
 def construir_pipeline(params: dict) -> Pipeline:
     """Pipeline de treino: padronização + regressão logística."""
     modelo = params["modelo"]
+    tipo = modelo.get("tipo", "logistica")
+    if tipo not in {"logistica", "sempre_ocupada"}:
+        raise ValueError("Tipo de modelo desconhecido")
+    classificador = (
+        DummyClassifier(strategy="constant", constant=1)
+        if tipo == "sempre_ocupada"
+        else LogisticRegression(
+            C=modelo["C"],
+            max_iter=modelo["max_iter"],
+            class_weight=modelo["class_weight"],
+            random_state=params["semente"],
+        )
+    )
     return Pipeline(
         [
             ("padronizar", StandardScaler()),
             (
                 "classificador",
-                LogisticRegression(
-                    C=modelo["C"],
-                    max_iter=modelo["max_iter"],
-                    class_weight=modelo["class_weight"],
-                    random_state=params["semente"],
-                ),
+                classificador,
             ),
         ]
     )
