@@ -1,4 +1,4 @@
-"""Gera um lote novo de exames em data/raw/lotes/ (com ou sem drift).
+"""Gera um lote novo de leituras ambientais em data/raw/lotes/ (com ou sem drift).
 
 Exemplos:
     python demo/gerar_lote.py lote_02                      # sem drift

@@ -1,0 +1,22 @@
+{
+  "fonte_sha256": "c090ee5c94b61762bfec9d22767864490b51030f98cca030f02822468db25d9c",
+  "fonte_linhas": 10129,
+  "linhas_unicas": 8824,
+  "duplicatas_removidas": 1305,
+  "particao": "treino 2017-12-22; holdout 2017-12-23; reserva posterior",
+  "atributos": 16,
+  "classes": {
+    "treino": {
+      "1": 825,
+      "0": 620
+    },
+    "holdout": {
+      "0": 1838,
+      "1": 782
+    },
+    "reserva": {
+      "0": 4465,
+      "1": 294
+    }
+  }
+}

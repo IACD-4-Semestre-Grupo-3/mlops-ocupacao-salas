@@ -18,8 +18,8 @@ def test_campeao_versionado_foi_certificado_pelo_portao():
     """O metrics.json do campeão registra o que o portão mediu ao aprová-lo e cumpre o contrato."""
     with open(config.METRICAS_CAMPEAO, encoding="utf-8") as arquivo:
         declaradas = json.load(arquivo)
-    assert declaradas["recall_maligno"] >= config.RECALL_MINIMO, declaradas
-    assert declaradas["precisao_maligna"] >= config.PRECISAO_MINIMA, declaradas
+    assert declaradas["recall_ocupada"] >= config.RECALL_MINIMO, declaradas
+    assert declaradas["precisao_ocupada"] >= config.PRECISAO_MINIMA, declaradas
 
 
 def test_campeao_versionado_nao_colapsou_na_base_de_referencia(campeao, base_holdout):
@@ -30,15 +30,15 @@ def test_campeao_versionado_nao_colapsou_na_base_de_referencia(campeao, base_hol
     Por isso o piso aqui é menor.
     """
     metricas = avaliar(campeao, base_holdout)
-    assert metricas["recall_maligno"] >= config.PISO_SANIDADE, metricas
-    assert metricas["precisao_maligna"] >= config.PISO_SANIDADE, metricas
+    assert metricas["recall_ocupada"] >= config.PISO_SANIDADE, metricas
+    assert metricas["precisao_ocupada"] >= config.PISO_SANIDADE, metricas
 
 
 def test_treino_com_o_codigo_e_params_atuais_cumpre_o_contrato(modelo_atual, base_holdout):
     """Se alguém mexer no código ou no params.yaml, o CI treina de novo e confere os limiares."""
     metricas = avaliar(modelo_atual, base_holdout)
-    assert metricas["recall_maligno"] >= config.RECALL_MINIMO, metricas
-    assert metricas["precisao_maligna"] >= config.PRECISAO_MINIMA, metricas
+    assert metricas["recall_ocupada"] >= config.RECALL_MINIMO, metricas
+    assert metricas["precisao_ocupada"] >= config.PRECISAO_MINIMA, metricas
 
 
 def test_modelo_supera_o_baseline_ingenuo(modelo_atual, base_treino, base_holdout):
@@ -81,13 +81,21 @@ def test_invariancia_a_ruido_minimo(modelo_atual, xy_holdout):
     assert mudou <= 0.02
 
 
-def test_direcional_tumor_maior_nao_reduz_a_chance_de_maligno(modelo_atual, xy_holdout):
-    """Teste direcional: tumor maior não pode reduzir a probabilidade média de câncer."""
+def test_direcional_movimento_nao_reduz_probabilidade_media_de_ocupacao(modelo_atual, xy_holdout):
+    """Checagem do comportamento esperado neste protótipo; não afirmação causal universal."""
     X_te, _ = xy_holdout
-    coluna = list(modelo_atual.classes_).index(config.CLASSE_MALIGNA)
-    maior = X_te.copy()
-    for c in config.COLUNAS_TAMANHO:
-        maior[c] = maior[c] * 1.10
-    antes = modelo_atual.predict_proba(X_te)[:, coluna].mean()
-    depois = modelo_atual.predict_proba(maior)[:, coluna].mean()
+    coluna = list(modelo_atual.classes_).index(config.CLASSE_POSITIVA)
+    sem_movimento = X_te.copy()
+    com_movimento = X_te.copy()
+    for c in ["S6_PIR", "S7_PIR"]:
+        sem_movimento[c] = 0
+        com_movimento[c] = 1
+    antes = modelo_atual.predict_proba(sem_movimento)[:, coluna].mean()
+    depois = modelo_atual.predict_proba(com_movimento)[:, coluna].mean()
     assert depois >= antes
+
+
+def test_prever_sempre_vazia_perde_todas_as_ocupacoes(base_holdout):
+    metricas = calcular_metricas(base_holdout[config.ALVO], np.zeros(len(base_holdout), dtype=int))
+    assert metricas["recall_ocupada"] == 0.0
+    assert metricas["recall_ocupada"] < config.RECALL_MINIMO

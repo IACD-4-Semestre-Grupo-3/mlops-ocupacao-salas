@@ -26,9 +26,30 @@ saude = chamar("/health")
 assert saude["status"] == "ok", saude
 print("health ok | versão:", saude["versao_codigo"])
 
+FEATURES = (
+    "S1_Temp",
+    "S2_Temp",
+    "S3_Temp",
+    "S4_Temp",
+    "S1_Light",
+    "S2_Light",
+    "S3_Light",
+    "S4_Light",
+    "S1_Sound",
+    "S2_Sound",
+    "S3_Sound",
+    "S4_Sound",
+    "S5_CO2",
+    "S5_CO2_Slope",
+    "S6_PIR",
+    "S7_PIR",
+)
+
 with open(HOLDOUT, encoding="utf-8") as arquivo:
     linha = next(csv.DictReader(arquivo))
-linha.pop("target")
-predicao = chamar("/predict", {"atributos": [float(v) for v in linha.values()]})
-assert predicao["classe"] in {"maligno", "benigno"}, predicao
+assert "ocupada" in linha, "Espero a coluna ocupada na base holdout"
+predicao = chamar("/predict", {"atributos": [float(linha[nome]) for nome in FEATURES]})
+assert set(predicao) == {"classe", "probabilidade_ocupada", "versao_codigo"}, predicao
+assert predicao["classe"] in {"ocupada", "vazia"}, predicao
+assert 0.0 <= predicao["probabilidade_ocupada"] <= 1.0, predicao
 print("predict ok |", predicao)
