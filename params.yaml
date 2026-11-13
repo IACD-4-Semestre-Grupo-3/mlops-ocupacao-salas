@@ -2,7 +2,7 @@
 semente: 42
 
 modelo:
-  tipo: logistica
+  tipo: sempre_ocupada
   C: 1.0
   max_iter: 2000
   class_weight: balanced
