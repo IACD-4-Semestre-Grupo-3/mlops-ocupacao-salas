@@ -19,6 +19,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, field_validator
 
 from mlops_demo import __version__, config
+from mlops_demo.data import limites
 
 CAMINHO_MODELO = Path(os.environ.get("MODEL_PATH", config.MODELO_CAMPEAO))
 CAMINHO_METRICAS = CAMINHO_MODELO.with_name("metrics.json")
@@ -38,14 +39,6 @@ class Medicao(BaseModel):
         """Valido a quantidade, os números finitos e os limites dos sensores."""
         if not isinstance(valores, list) or len(valores) != len(config.FEATURES):
             raise ValueError(f"Espero {len(config.FEATURES)} atributos na ordem de config.FEATURES")
-        limites = {
-            "Temp": (-20, 60),
-            "Light": (0, 5000),
-            "Sound": (0, 10),
-            "CO2": (250, 10000),
-            "Slope": (-200, 200),
-            "PIR": (0, 1),
-        }
         resultado = []
         for nome, valor in zip(config.FEATURES, valores, strict=True):
             if isinstance(valor, bool) or not isinstance(valor, Real):
@@ -56,7 +49,8 @@ class Medicao(BaseModel):
                 raise ValueError(f"Espero um número finito em {nome}") from erro
             if not math.isfinite(numero):
                 raise ValueError(f"Espero um número finito em {nome}")
-            minimo, maximo = limites[nome.rsplit("_", 1)[-1]]
+            # mesmas faixas da validação dos dados de treino (data.limites)
+            minimo, maximo = limites(nome)
             if not minimo <= numero <= maximo:
                 raise ValueError(f"Espero {nome} entre {minimo} e {maximo}")
             if nome.endswith("_PIR") and numero not in {0, 1}:
