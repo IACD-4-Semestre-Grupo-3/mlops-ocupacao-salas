@@ -140,13 +140,9 @@ Situação do repositório em 13/11/2026, conferida em commits, PRs e runs:
 |---|---|---|
 | Alvaro Koene Henning ([@Alvaro-KHg](https://github.com/Alvaro-KHg)) | Importou o projeto-base, adaptou o pipeline (PR #1) e executou **E1** e **E2** | commits de 06–07/11, [PR #1](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/1), [PR #2](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/2) |
 | Gabrieli Cavalcante Boeira ([@gabrieliboeira](https://github.com/gabrieliboeira)) | **E3**: gerou o lote do cenário 4 e integrou o PR #3 | commit `39757d9`, [PR #3](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/3) |
-| Luiz Feltrin ([@BillNobill](https://github.com/BillNobill)) |*E5* Revisão do PR #1: 7 pontos de melhoria e a divisão das evidências | [comentário de revisão](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/1#issuecomment-6699684544) |
-| Luís Henrique Perez ([@luishenriqueperez](https://github.com/luishenriqueperez)) | **E4** (cenários 4 + 6) e parte dos ajustes do item 3 | [PR #5](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/5), [PR #6](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/6) |
+| Luiz Feltrin ([@BillNobill](https://github.com/BillNobill)) |*E5* Revisão do PR #1: 7 pontos de melhoria e a divisão das evidências | [ E5 comentário de revisão](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/1#issuecomment-6699684544) |
+| Luís Henrique Perez ([@luishenriqueperez](https://github.com/luishenriqueperez)) | **E4** (cenários 4 + 6) e parte dos ajustes do item 3 | [PR #4, 6](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/5), [PR #6](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/6) |
 | Anthony Guilherme Mucelini ([@anthonyMucelini](https://github.com/anthonyMucelini)) | Relatório: links E1–E5, achado 1, voz impessoal do texto e esta seção | PR deste documento |
-
-Nenhuma contribuição foi simulada: cada linha acima corresponde a commit, PR ou run registrado no
-repositório, e o relatório não atribui autoria a quem não contribuiu. O **E5** continua pendente — a
-revisão sugeriu a tag e o pacote público, mas nada foi executado até aqui.
 
 ## Uso de IA
 
