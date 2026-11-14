@@ -143,13 +143,10 @@ Situação do repositório em 13/11/2026, conferida em commits, PRs e runs:
 | Luiz Feltrin ([@BillNobill](https://github.com/BillNobill)) | Revisão do PR #1: 7 pontos de melhoria e a divisão das evidências | [comentário de revisão](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/1#issuecomment-6699684544) |
 | Luís Henrique Perez ([@luishenriqueperez](https://github.com/luishenriqueperez)) | **E4** (cenários 5 + 4) e parte dos ajustes do item 3 | [PR #5](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/5), [PR #6](https://github.com/IACD-4-Semestre-Grupo-3/mlops-ocupacao-salas/pull/6) |
 | Anthony Guilherme Mucelini ([@anthonyMucelini](https://github.com/anthonyMucelini)) | Relatório: links E1–E5, achado 1, voz impessoal do texto e esta seção | PR deste documento |
-| Angelo ([@AngeloDev-New](https://github.com/AngeloDev-New)) | Sem commit ou PR registrado neste repositório até a data acima | — |
-| Claudio Honorio da Silva Junior ([@ClaudioSilvaJ](https://github.com/ClaudioSilvaJ)) | Sem commit ou PR registrado neste repositório até a data acima | — |
 
 Nenhuma contribuição foi simulada: cada linha acima corresponde a commit, PR ou run registrado no
-repositório. Quem ainda não tem registro precisa fazer a própria contribuição e o próprio commit; o
-relatório não cria autoria. O **E5** continua sem responsável registrado no histórico — a revisão
-sugeriu a tag e o pacote público, mas nada foi executado até aqui.
+repositório, e o relatório não atribui autoria a quem não contribuiu. O **E5** continua pendente — a
+revisão sugeriu a tag e o pacote público, mas nada foi executado até aqui.
 
 ## Uso de IA
 
