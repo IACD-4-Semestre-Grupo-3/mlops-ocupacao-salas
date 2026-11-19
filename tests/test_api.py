@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 
 from mlops_demo import api, config
 from mlops_demo.api import app
+from mlops_demo.data import limites
 
 pytestmark = pytest.mark.api
 
@@ -85,21 +86,20 @@ def test_predict_aceita_inclinacao_negativa_de_co2(base_holdout):
 
 
 @pytest.mark.parametrize(
+    "feature", ["S1_Temp", "S1_Light", "S1_Sound", "S5_CO2", "S5_CO2_Slope", "S6_PIR", "S7_PIR"]
+)
+@pytest.mark.parametrize("passo", [-0.1, 0.1])
+def test_predict_rejeita_valores_fora_da_faixa(feature, passo, atributos_sensores):
+    minimo, maximo = limites(feature)
+    atributos_sensores[config.FEATURES.index(feature)] = (minimo if passo < 0 else maximo) + passo
+    resposta = cliente.post("/predict", json={"atributos": atributos_sensores})
+    assert resposta.status_code == 422
+
+
+@pytest.mark.parametrize(
     ("feature", "valor"),
     [
-        ("S1_Temp", -20.1),
-        ("S1_Temp", 60.1),
-        ("S1_Light", -0.1),
-        ("S1_Light", 5000.1),
-        ("S1_Sound", -0.1),
-        ("S1_Sound", 10.1),
         ("S5_CO2", -1.0),
-        ("S5_CO2", 249.9),
-        ("S5_CO2", 10000.1),
-        ("S5_CO2_Slope", -200.1),
-        ("S5_CO2_Slope", 200.1),
-        ("S6_PIR", -0.1),
-        ("S7_PIR", 1.1),
         ("S1_Temp", True),
         ("S5_CO2", "500"),
         ("S6_PIR", None),
@@ -123,16 +123,8 @@ def test_predict_rejeita_nao_finitos(valor, atributos_sensores):
 
 
 def test_medicao_aceita_limites_inclusivos():
-    limites = {
-        "Temp": (-20, 60),
-        "Light": (0, 5000),
-        "Sound": (0, 10),
-        "CO2": (250, 10000),
-        "Slope": (-200, 200),
-        "PIR": (0, 1),
-    }
     for extremo in (0, 1):
-        valores = [limites[nome.rsplit("_", 1)[-1]][extremo] for nome in config.FEATURES]
+        valores = [limites(nome)[extremo] for nome in config.FEATURES]
         assert api.Medicao(atributos=valores).atributos == valores
 
 

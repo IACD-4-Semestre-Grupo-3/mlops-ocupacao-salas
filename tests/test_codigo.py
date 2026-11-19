@@ -43,7 +43,7 @@ def test_pipeline_tem_padronizacao_e_classificador(params):
 
 
 def test_metricas_usam_a_classe_ocupada_como_positiva():
-    # modelo que chuta tudo como ocupada (0): recall 1.0 e precisão = proporção real de ocupados
+    # modelo que chuta tudo como ocupada (1): recall 1.0 e precisão = proporção real de ocupados
     y_real = [0, 0, 1, 1]
     metricas = calcular_metricas(y_real, [1, 1, 1, 1])
     assert metricas["recall_ocupada"] == 1.0
